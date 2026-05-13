@@ -1,33 +1,96 @@
-// ✨ Daily Task Tracker - Kawaii Edition ✨
+// ✨ Golden Thread Tracker - Kawaii Edition ✨
 
 // Daily Motivational Quotes
 const motivationalQuotes = [
-    "✨ You are capable of amazing things! 🌟",
-    "💪 Progress over perfection, always!",
-    "🎨 Today is your masterpiece, create it!",
-    "💕 Be kind to yourself, you're doing great!",
-    "🌸 Every small step counts, keep going!",
-    "🦋 You are stronger than you think!",
-    "🌈 Your efforts will bloom into success!",
-    "💎 You are worthy of all your dreams!",
-    "🌺 Every day is a fresh start, shine bright!",
-    "✨ Believe in yourself like we believe in you!",
-    "🎀 You're a beautiful work in progress!",
-    "💗 Your hard work is paying off!",
-    "🌟 Keep going, you're almost there!",
-    "🦄 You're magical, never forget that!",
-    "🌙 Rest when you need to, but don't give up!",
+    "✨ You are building something extraordinary today! 🌟",
+    "💪 Your brand is becoming clearer with each step!",
+    "🎨 Golden Thread is taking shape beautifully!",
+    "💕 Be kind to yourself, you're doing amazing!",
+    "🌸 Every application is a step closer to your goal!",
+    "🦋 Your professional growth is happening now!",
+    "🌈 Introspection today = wisdom tomorrow!",
+    "💎 You deserve success and connections!",
+    "🌺 Your authentic self is your greatest asset!",
+    "✨ Believe in your vision like we believe in you!",
+    "🎀 You're building your legend! Keep going!",
+    "💗 Growth comes from consistent action!",
+    "🌟 Your networking today = tomorrow's opportunities!",
+    "🦄 You're becoming the person you want to be!",
+    "🌙 Rest when needed, but never quit your dreams!",
     "💫 Your potential is limitless!",
-    "🎯 Focus on progress, not perfection!",
-    "🌸 Bloom where you're planted!",
-    "💖 You deserve celebration today!",
-    "🌻 Let today be better than yesterday!",
-    "✨ Small wins are still wins, celebrate!",
-    "💝 Take care of yourself first!",
-    "🎊 You're doing better than you think!",
+    "🎯 Consistency over perfection, always!",
+    "🌸 Your personal brand matters to the world!",
+    "💖 You deserve every opportunity coming your way!",
+    "🌻 The best time to start was yesterday. The second best is NOW!",
+    "✨ Small wins compound into excellence!",
+    "💝 Your journey is uniquely beautiful!",
+    "🎊 You're creating a legacy of growth!",
     "🌷 Beauty comes from persistence!",
-    "💫 Make today count, you've got this!"
+    "💫 Your story is still being written!"
 ];
+
+// Task definitions with points and descriptions
+const TASKS = {
+    exercise: {
+        id: 'exercise',
+        name: '💪 Daily Exercise',
+        emoji: '💪',
+        description: 'Get your body moving!',
+        type: 'checkbox',
+        points: 100,
+        weeklyFreq: '5x per week'
+    },
+    jobApps: {
+        id: 'jobApps',
+        name: '💼 Job Applications',
+        emoji: '💼',
+        description: 'Apply to your next opportunity',
+        type: 'counter',
+        points: 150,
+        weeklyFreq: 'Daily',
+        goal: 3
+    },
+    branding: {
+        id: 'branding',
+        name: '🪞 Personal Brand Reflection',
+        emoji: '🪞',
+        description: 'What do you want your brand & online persona to be?',
+        type: 'notes',
+        points: 200,
+        weeklyFreq: 'Daily',
+        prompt: 'How do you want to be perceived? What\'s your unique value? What message do you want to share?'
+    },
+    goldenThread: {
+        id: 'goldenThread',
+        name: '✨ Golden Thread Intel',
+        emoji: '✨',
+        description: 'Build your signature project',
+        type: 'duration',
+        points: 200,
+        weeklyFreq: 'Daily',
+        unit: 'minutes'
+    },
+    profDev: {
+        id: 'profDev',
+        name: '📚 Professional Development',
+        emoji: '📚',
+        description: 'Courses, learning, skill-building',
+        type: 'duration',
+        points: 150,
+        weeklyFreq: 'Daily',
+        unit: 'minutes'
+    },
+    networking: {
+        id: 'networking',
+        name: '🤝 Networking',
+        emoji: '🤝',
+        description: 'Connect with people in your field',
+        type: 'counter',
+        points: 250,
+        weeklyFreq: 'Weekly',
+        goal: 1
+    }
+};
 
 // Mood emojis and names
 const moodData = {
@@ -37,27 +100,57 @@ const moodData = {
     excited: { emoji: '🤩', label: 'Excited' }
 };
 
-// Data structure
+// Level thresholds
+const LEVELS = [
+    { name: '🌱 Beginner', minXP: 0, maxXP: 1000 },
+    { name: '🌿 Growing', minXP: 1000, maxXP: 3000 },
+    { name: '🌸 Blooming', minXP: 3000, maxXP: 6000 },
+    { name: '🌺 Flourishing', minXP: 6000, maxXP: 10000 },
+    { name: '🌹 Magnificent', minXP: 10000, maxXP: Infinity }
+];
+
+// Achievements
+const ACHIEVEMENTS = [
+    { id: 'firstStep', name: '👣 First Step', desc: 'Complete your first full day', icon: '👣', points: 50, requirement: { type: 'fullDay', count: 1 } },
+    { id: 'weekWarrior', name: '⚔️ Week Warrior', desc: '7-day streak', icon: '⚔️', points: 200, requirement: { type: 'streak', count: 7 } },
+    { id: 'monthMaster', name: '👑 Month Master', desc: '30-day streak', icon: '👑', points: 500, requirement: { type: 'streak', count: 30 } },
+    { id: 'perfectDay', name: '⭐ Perfect Day', desc: 'Complete all tasks in one day', icon: '⭐', points: 150, requirement: { type: 'perfectDay', count: 1 } },
+    { id: 'brandScholar', name: '📖 Branding Scholar', desc: '10 brand reflections', icon: '📖', points: 100, requirement: { type: 'branding', count: 10 } },
+    { id: 'goldenBuilder', name: '🏗️ Golden Builder', desc: '50+ hours on Golden Thread', icon: '🏗️', points: 300, requirement: { type: 'goldenThread', count: 3000 } },
+    { id: 'networking10', name: '🌐 Connector', desc: '10 networking activities', icon: '🌐', points: 150, requirement: { type: 'networking', count: 10 } },
+    { id: 'level5', name: '✨ Magnificent', desc: 'Reach Level 5', icon: '✨', points: 500, requirement: { type: 'level', count: 5 } }
+];
+
+// App data structure
 let appData = {
     today: new Date().toDateString(),
-    tasks: [],
+    totalXP: 0,
+    unlockedAchievements: [],
+    tasks: {
+        exercise: { completed: false },
+        jobApps: { count: 0, completed: false },
+        branding: { notes: '', completed: false },
+        goldenThread: { minutes: 0, completed: false },
+        profDev: { minutes: 0, completed: false },
+        networking: { count: 0, completed: false }
+    },
     mood: '',
     summary: '',
     history: []
 };
 
-// Chart instance
 let progressChart = null;
 
 // Initialize the app
 function initApp() {
     loadData();
+    checkNewDay();
     renderUI();
     attachEventListeners();
     displayDate();
     displayDailyQuote();
     updateAnalytics();
-    checkNewDay();
+    updateAchievements();
 }
 
 // Check if it's a new day
@@ -65,27 +158,31 @@ function checkNewDay() {
     const today = new Date().toDateString();
     if (appData.today !== today) {
         // Save today's data to history
-        if (appData.tasks.length > 0 || appData.mood || appData.summary) {
-            const dayData = {
-                date: appData.today,
-                tasks: appData.tasks,
-                mood: appData.mood,
-                summary: appData.summary,
-                completedCount: appData.tasks.filter(t => t.completed).length,
-                totalCount: appData.tasks.length,
-                progressPercentage: calculateProgress()
-            };
-            appData.history.push(dayData);
-            
-            // Keep only last 30 days
-            if (appData.history.length > 30) {
-                appData.history.shift();
-            }
+        const dayData = {
+            date: appData.today,
+            tasks: JSON.parse(JSON.stringify(appData.tasks)),
+            mood: appData.mood,
+            summary: appData.summary,
+            pointsEarned: calculateDayPoints(appData.tasks),
+            completionPercentage: calculateProgress()
+        };
+        appData.history.push(dayData);
+        
+        // Keep only last 30 days
+        if (appData.history.length > 30) {
+            appData.history.shift();
         }
         
         // Reset for new day
         appData.today = today;
-        appData.tasks = [];
+        appData.tasks = {
+            exercise: { completed: false },
+            jobApps: { count: 0, completed: false },
+            branding: { notes: '', completed: false },
+            goldenThread: { minutes: 0, completed: false },
+            profDev: { minutes: 0, completed: false },
+            networking: { count: 0, completed: false }
+        };
         appData.mood = '';
         appData.summary = '';
         saveData();
@@ -110,59 +207,171 @@ function displayDailyQuote() {
 
 // Event Listeners
 function attachEventListeners() {
-    document.getElementById('addTaskBtn').addEventListener('click', addTask);
-    document.getElementById('taskInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') addTask();
-    });
-    document.getElementById('saveSummaryBtn').addEventListener('click', saveSummary);
     document.getElementById('moodSelect').addEventListener('change', (e) => {
         appData.mood = e.target.value;
         saveData();
         updateAnalytics();
     });
+    document.getElementById('saveSummaryBtn').addEventListener('click', saveSummary);
 }
 
-// Add a new task
-function addTask() {
-    const input = document.getElementById('taskInput');
-    const taskText = input.value.trim();
+// Render all tasks
+function renderUI() {
+    const tasksList = document.getElementById('tasksList');
     
-    if (taskText === '') {
-        alert('Please enter a task! 🌟');
-        return;
-    }
+    tasksList.innerHTML = Object.values(TASKS).map(task => {
+        const taskData = appData.tasks[task.id];
+        let taskHTML = `
+            <div class="task-item ${isTaskCompleted(task.id) ? 'completed' : ''}">
+                <div class="task-header">
+        `;
+        
+        if (task.type === 'checkbox') {
+            taskHTML += `
+                    <input type="checkbox" class="task-checkbox" ${taskData.completed ? 'checked' : ''} 
+                           onchange="toggleTask('${task.id}')">
+                    <div class="task-info">
+                        <span class="task-name">${task.name}</span>
+                        <span class="task-desc">${task.description}</span>
+                        <span class="task-points">+${task.points} pts</span>
+                    </div>
+                </div>
+            `;
+        } else if (task.type === 'counter') {
+            const count = taskData.count || 0;
+            taskHTML += `
+                    <div class="task-info">
+                        <span class="task-name">${task.name}</span>
+                        <span class="task-desc">${task.description}</span>
+                        <span class="task-points">+${task.points} pts per item</span>
+                    </div>
+                </div>
+                <div class="task-tracking">
+                    <button class="counter-btn" onclick="decrementCounter('${task.id}')">−</button>
+                    <span class="counter-value">${count}</span>
+                    <button class="counter-btn" onclick="incrementCounter('${task.id}')">+</button>
+                    <input type="checkbox" class="task-checkbox" ${count > 0 ? 'checked' : ''} disabled 
+                           style="margin-left: auto;">
+                </div>
+            `;
+        } else if (task.type === 'notes') {
+            taskHTML += `
+                    <div class="task-info">
+                        <span class="task-name">${task.name}</span>
+                        <span class="task-desc">${task.description}</span>
+                        <span class="task-points">+${task.points} pts</span>
+                    </div>
+                </div>
+                <p class="reflection-prompt">${task.prompt}</p>
+                <textarea class="task-notes" onchange="updateNotes('${task.id}', this.value)">${taskData.notes}</textarea>
+                <div style="margin-top: 8px;">
+                    <input type="checkbox" class="task-checkbox" ${taskData.notes.trim().length > 10 ? 'checked' : ''} disabled>
+                    <label style="margin-left: 8px; color: var(--text-light); font-size: 0.9em;">Reflection recorded</label>
+                </div>
+            `;
+        } else if (task.type === 'duration') {
+            const minutes = taskData.minutes || 0;
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            const displayTime = hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
+            
+            taskHTML += `
+                    <div class="task-info">
+                        <span class="task-name">${task.name}</span>
+                        <span class="task-desc">${task.description}</span>
+                        <span class="task-points">+${task.points} pts</span>
+                    </div>
+                    <span class="duration-value">${displayTime}</span>
+                </div>
+                <div class="task-tracking">
+                    <input type="number" min="0" placeholder="Minutes" value="${minutes}" 
+                           onchange="updateDuration('${task.id}', this.value)">
+                    <button class="counter-btn" onclick="addDuration('${task.id}', 15)">+15m</button>
+                    <button class="counter-btn" onclick="addDuration('${task.id}', 30)">+30m</button>
+                    <input type="checkbox" class="task-checkbox" ${minutes > 0 ? 'checked' : ''} disabled 
+                           style="margin-left: auto;">
+                </div>
+            `;
+        }
+        
+        taskHTML += `</div>`;
+        return taskHTML;
+    }).join('');
     
-    const task = {
-        id: Date.now(),
-        text: taskText,
-        completed: false,
-        createdAt: new Date().toLocaleTimeString()
-    };
-    
-    appData.tasks.push(task);
-    input.value = '';
+    restoreMood();
+    restoreSummary();
+}
+
+// Toggle checkbox task
+function toggleTask(taskId) {
+    appData.tasks[taskId].completed = !appData.tasks[taskId].completed;
     saveData();
     renderUI();
     updateAnalytics();
 }
 
-// Toggle task completion
-function toggleTask(id) {
-    const task = appData.tasks.find(t => t.id === id);
-    if (task) {
-        task.completed = !task.completed;
-        saveData();
-        renderUI();
-        updateAnalytics();
-    }
-}
-
-// Delete a task
-function deleteTask(id) {
-    appData.tasks = appData.tasks.filter(t => t.id !== id);
+// Increment counter
+function incrementCounter(taskId) {
+    appData.tasks[taskId].count++;
+    appData.tasks[taskId].completed = appData.tasks[taskId].count >= TASKS[taskId].goal;
     saveData();
     renderUI();
     updateAnalytics();
+}
+
+// Decrement counter
+function decrementCounter(taskId) {
+    if (appData.tasks[taskId].count > 0) {
+        appData.tasks[taskId].count--;
+    }
+    appData.tasks[taskId].completed = appData.tasks[taskId].count >= TASKS[taskId].goal;
+    saveData();
+    renderUI();
+    updateAnalytics();
+}
+
+// Update notes
+function updateNotes(taskId, value) {
+    appData.tasks[taskId].notes = value;
+    appData.tasks[taskId].completed = value.trim().length > 10;
+    saveData();
+    updateAnalytics();
+}
+
+// Update duration
+function updateDuration(taskId, minutes) {
+    const mins = parseInt(minutes) || 0;
+    appData.tasks[taskId].minutes = Math.max(0, mins);
+    appData.tasks[taskId].completed = mins > 0;
+    saveData();
+    renderUI();
+    updateAnalytics();
+}
+
+// Add duration shortcut
+function addDuration(taskId, minutes) {
+    appData.tasks[taskId].minutes += minutes;
+    appData.tasks[taskId].completed = true;
+    saveData();
+    renderUI();
+    updateAnalytics();
+}
+
+// Is task completed
+function isTaskCompleted(taskId) {
+    const task = TASKS[taskId];
+    const taskData = appData.tasks[taskId];
+    
+    if (task.type === 'checkbox') {
+        return taskData.completed;
+    } else if (task.type === 'counter') {
+        return taskData.count >= task.goal;
+    } else if (task.type === 'notes') {
+        return taskData.notes.trim().length > 10;
+    } else if (task.type === 'duration') {
+        return taskData.minutes > 0;
+    }
+    return false;
 }
 
 // Save daily summary
@@ -170,77 +379,66 @@ function saveSummary() {
     const summary = document.getElementById('summaryText').value;
     appData.summary = summary;
     saveData();
-    alert('Summary saved! 💾✨');
-}
-
-// Render UI
-function renderUI() {
-    renderTaskList();
-    restoreMoodSelection();
-    restoreSummary();
-}
-
-// Render task list
-function renderTaskList() {
-    const taskList = document.getElementById('taskList');
-    
-    if (appData.tasks.length === 0) {
-        taskList.innerHTML = '<li class="empty-state">No tasks yet! Add one to get started! 🎀</li>';
-        return;
-    }
-    
-    taskList.innerHTML = appData.tasks.map(task => `
-        <li class="task-item ${task.completed ? 'completed' : ''}">
-            <input 
-                type="checkbox" 
-                class="task-checkbox" 
-                ${task.completed ? 'checked' : ''}
-                onchange="toggleTask(${task.id})"
-            >
-            <span class="task-text">${escapeHtml(task.text)}</span>
-            <div class="task-actions">
-                <button class="btn btn-delete" onclick="deleteTask(${task.id})">Delete 🗑️</button>
-            </div>
-        </li>
-    `).join('');
-}
-
-// Restore mood selection
-function restoreMoodSelection() {
-    const moodSelect = document.getElementById('moodSelect');
-    moodSelect.value = appData.mood;
-}
-
-// Restore summary
-function restoreSummary() {
-    document.getElementById('summaryText').value = appData.summary;
+    alert('Daily reflection saved! 💾✨');
 }
 
 // Calculate progress percentage
 function calculateProgress() {
-    if (appData.tasks.length === 0) return 0;
-    const completed = appData.tasks.filter(t => t.completed).length;
-    return Math.round((completed / appData.tasks.length) * 100);
+    const totalTasks = Object.keys(TASKS).length;
+    const completedTasks = Object.keys(TASKS).filter(id => isTaskCompleted(id)).length;
+    return Math.round((completedTasks / totalTasks) * 100);
+}
+
+// Calculate points for a day
+function calculateDayPoints(tasks) {
+    let points = 0;
+    
+    Object.keys(tasks).forEach(taskId => {
+        const task = TASKS[taskId];
+        const taskData = tasks[taskId];
+        
+        if (task.type === 'checkbox') {
+            if (taskData.completed) points += task.points;
+        } else if (task.type === 'counter') {
+            points += taskData.count * task.points;
+        } else if (task.type === 'notes') {
+            if (taskData.notes.trim().length > 10) points += task.points;
+        } else if (task.type === 'duration') {
+            if (taskData.minutes > 0) points += task.points;
+        }
+    });
+    
+    return points;
+}
+
+// Calculate today's points
+function calculateTodayPoints() {
+    return calculateDayPoints(appData.tasks);
+}
+
+// Calculate current level
+function getCurrentLevel() {
+    for (let i = LEVELS.length - 1; i >= 0; i--) {
+        if (appData.totalXP >= LEVELS[i].minXP) {
+            return i + 1;
+        }
+    }
+    return 1;
 }
 
 // Calculate current streak
 function calculateStreak() {
     let streak = 0;
     
-    // Check if today is completed (100%)
-    if (appData.tasks.length > 0 && calculateProgress() === 100) {
+    if (calculateProgress() === 100) {
         streak = 1;
-    } else if (appData.tasks.length === 0) {
-        // If no tasks today, check history
-        streak = 0;
     } else {
         return 0;
     }
     
-    // Count backwards in history
     for (let i = appData.history.length - 1; i >= 0; i--) {
         const day = appData.history[i];
-        if (day.progressPercentage === 100 || day.totalCount === 0) {
+        if (day.completionPercentage === 100) {
             streak++;
         } else {
             break;
@@ -253,26 +451,74 @@ function calculateStreak() {
 // Update analytics
 function updateAnalytics() {
     const progress = calculateProgress();
-    const completed = appData.tasks.filter(t => t.completed).length;
-    const total = appData.tasks.length;
+    const todayPts = calculateTodayPoints();
+    const currentLevel = getCurrentLevel();
+    const streak = calculateStreak();
+    
+    // Add today's points to total
+    appData.totalXP += todayPts > 0 ? todayPts - (appData.history.length > 0 ? appData.history[appData.history.length - 1].pointsEarned || 0 : 0) : 0;
+    
+    // Update header stats
+    document.getElementById('headerLevel').textContent = currentLevel + ' ' + (LEVELS[currentLevel - 1]?.name.split(' ')[0] || '🌱');
+    document.getElementById('headerPoints').textContent = appData.totalXP + ' ⭐';
+    document.getElementById('headerStreak').textContent = streak + ' 🔥';
+    document.getElementById('headerProgress').textContent = progress + '%';
+    
+    // Update level display
+    updateLevelDisplay();
     
     // Update progress bar
     document.getElementById('progressFill').style.width = progress + '%';
     document.getElementById('progressText').textContent = progress + '%';
     
-    // Update stats
-    document.getElementById('totalTasks').textContent = total;
-    document.getElementById('completedTasks').textContent = completed;
-    document.getElementById('currentStreak').textContent = calculateStreak() + ' 🔥';
+    // Update task breakdown
+    updateTaskBreakdown();
     
-    // Update history
+    // Update history and mood tracker
     renderHistory();
-    
-    // Update mood tracker
     renderMoodTracker();
     
     // Update chart
     updateChart();
+    
+    saveData();
+}
+
+// Update level display
+function updateLevelDisplay() {
+    const currentLevel = getCurrentLevel();
+    const currentLevelData = LEVELS[currentLevel - 1];
+    const nextLevelData = LEVELS[currentLevel] || LEVELS[currentLevel - 1];
+    
+    document.getElementById('levelDisplay').textContent = currentLevel;
+    document.getElementById('levelName').textContent = currentLevelData.name;
+    document.getElementById('totalPoints').textContent = appData.totalXP;
+    document.getElementById('todayPoints').textContent = calculateTodayPoints();
+    
+    // XP bar
+    const currentXP = appData.totalXP - currentLevelData.minXP;
+    const nextXP = nextLevelData.maxXP - currentLevelData.minXP;
+    const xpPercent = Math.min(100, (currentXP / nextXP) * 100);
+    
+    document.getElementById('xpFill').style.width = xpPercent + '%';
+    document.getElementById('currentXP').textContent = currentXP;
+    document.getElementById('nextLevelXP').textContent = nextXP;
+}
+
+// Update task breakdown
+function updateTaskBreakdown() {
+    const breakdown = document.getElementById('taskBreakdown');
+    
+    breakdown.innerHTML = Object.values(TASKS).map(task => {
+        const completed = isTaskCompleted(task.id);
+        const emoji = completed ? '✅' : '⏳';
+        return `
+            <div class="breakdown-item ${completed ? 'completed' : ''}">
+                <span>${emoji} ${task.name}</span>
+                <span class="breakdown-status">${completed ? 'Done!' : 'Pending'}</span>
+            </div>
+        `;
+    }).join('');
 }
 
 // Render history
@@ -284,15 +530,13 @@ function renderHistory() {
         return;
     }
     
-    // Get last 7 days
     const last7Days = appData.history.slice(-7);
-    
     historyList.innerHTML = last7Days.map(day => {
         const date = new Date(day.date);
         const dateStr = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
         return `
             <div class="history-item">
-                <strong>${dateStr}</strong> - ${day.completedCount}/${day.totalCount} tasks (${day.progressPercentage}%)
+                <strong>${dateStr}</strong> - ${day.completionPercentage}% | ${day.pointsEarned} pts
             </div>
         `;
     }).reverse().join('');
@@ -302,7 +546,6 @@ function renderHistory() {
 function renderMoodTracker() {
     const moodTracker = document.getElementById('moodTracker');
     
-    // Count moods from last 7 days + today
     const moodCounts = {
         motivated: 0,
         neutral: 0,
@@ -310,7 +553,6 @@ function renderMoodTracker() {
         excited: 0
     };
     
-    // Count from history
     const last7Days = appData.history.slice(-6);
     last7Days.forEach(day => {
         if (day.mood && moodCounts.hasOwnProperty(day.mood)) {
@@ -318,12 +560,10 @@ function renderMoodTracker() {
         }
     });
     
-    // Count today's mood
     if (appData.mood && moodCounts.hasOwnProperty(appData.mood)) {
         moodCounts[appData.mood]++;
     }
     
-    // Check if any mood has been recorded
     const hasAnyMood = Object.values(moodCounts).some(count => count > 0);
     
     if (!hasAnyMood) {
@@ -342,42 +582,36 @@ function renderMoodTracker() {
     }).join('');
 }
 
-// Update progress chart
+// Update chart
 function updateChart() {
     const ctx = document.getElementById('progressChart').getContext('2d');
     
-    // Get last 7 days including today
     const last7Days = [...appData.history.slice(-6)];
     
-    // Add today
-    if (appData.tasks.length > 0 || appData.mood || appData.summary) {
+    if (calculateProgress() > 0 || appData.history.length === 0) {
         last7Days.push({
             date: new Date().toDateString(),
-            progressPercentage: calculateProgress()
+            completionPercentage: calculateProgress()
         });
     }
     
-    // Get labels (days of week)
     const labels = last7Days.map(day => {
         const date = new Date(day.date);
         return date.toLocaleDateString('en-US', { weekday: 'short' });
     });
     
-    // Get data (percentages)
-    const data = last7Days.map(day => day.progressPercentage);
+    const data = last7Days.map(day => day.completionPercentage);
     
-    // Destroy old chart if exists
     if (progressChart) {
         progressChart.destroy();
     }
     
-    // Create new chart
     progressChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,
             datasets: [{
-                label: 'Daily Progress %',
+                label: 'Daily Completion %',
                 data: data,
                 borderColor: '#FFB6D9',
                 backgroundColor: 'rgba(255, 182, 217, 0.1)',
@@ -425,23 +659,79 @@ function updateChart() {
     });
 }
 
-// Data persistence
-function saveData() {
-    localStorage.setItem('taskTrackerData', JSON.stringify(appData));
-}
-
-function loadData() {
-    const saved = localStorage.getItem('taskTrackerData');
-    if (saved) {
-        appData = JSON.parse(saved);
+// Update achievements
+function updateAchievements() {
+    const achievementsList = document.getElementById('achievementsList');
+    
+    let html = '';
+    ACHIEVEMENTS.forEach(achievement => {
+        const unlocked = appData.unlockedAchievements.includes(achievement.id);
+        const meetsRequirement = checkAchievementRequirement(achievement);
+        
+        if (!unlocked && meetsRequirement) {
+            appData.unlockedAchievements.push(achievement.id);
+            appData.totalXP += achievement.points;
+        }
+        
+        html += `
+            <div class="achievement ${unlocked ? '' : 'opacity-50'}">
+                <span class="achievement-icon">${achievement.icon}</span>
+                <div class="achievement-info">
+                    <span class="achievement-name">${achievement.name}</span>
+                    <span class="achievement-desc">${achievement.desc}</span>
+                </div>
+                <span class="achievement-points">+${achievement.points}</span>
+            </div>
+        `;
+    });
+    
+    if (html) {
+        achievementsList.innerHTML = html;
     }
 }
 
-// Escape HTML to prevent XSS
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+// Check achievement requirement
+function checkAchievementRequirement(achievement) {
+    const req = achievement.requirement;
+    
+    if (req.type === 'streak') {
+        return calculateStreak() >= req.count;
+    } else if (req.type === 'fullDay') {
+        return calculateProgress() === 100;
+    } else if (req.type === 'perfectDay') {
+        return calculateProgress() === 100;
+    } else if (req.type === 'branding') {
+        return appData.history.filter(d => d.tasks.branding.notes.length > 10).length >= req.count;
+    } else if (req.type === 'goldenThread') {
+        return appData.history.reduce((sum, d) => sum + (d.tasks.goldenThread?.minutes || 0), 0) >= req.count;
+    } else if (req.type === 'networking') {
+        return appData.history.reduce((sum, d) => sum + (d.tasks.networking?.count || 0), 0) >= req.count;
+    } else if (req.type === 'level') {
+        return getCurrentLevel() >= req.count;
+    }
+    return false;
+}
+
+// Restore mood
+function restoreMood() {
+    document.getElementById('moodSelect').value = appData.mood;
+}
+
+// Restore summary
+function restoreSummary() {
+    document.getElementById('summaryText').value = appData.summary;
+}
+
+// Data persistence
+function saveData() {
+    localStorage.setItem('goldenThreadData', JSON.stringify(appData));
+}
+
+function loadData() {
+    const saved = localStorage.getItem('goldenThreadData');
+    if (saved) {
+        appData = JSON.parse(saved);
+    }
 }
 
 // Initialize the app when DOM is ready
