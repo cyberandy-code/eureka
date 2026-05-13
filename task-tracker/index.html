@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Daily Task Tracker - Kawaii Edition ✨</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>✨ Daily Task Tracker 💕</h1>
+            <span id="todayDate"></span>
+            <p id="dailyQuote"></p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Column: Tasks and Mood -->
+            <div>
+                <!-- Task Management Card -->
+                <div class="card">
+                    <h2>📋 Today's Tasks</h2>
+                    
+                    <div class="task-input-container">
+                        <input 
+                            type="text" 
+                            id="taskInput" 
+                            placeholder="Add a new task... ✨"
+                            autocomplete="off"
+                        >
+                        <button class="btn" id="addTaskBtn">Add 🌟</button>
+                    </div>
+
+                    <ul id="taskList" class="task-list">
+                        <li class="empty-state">No tasks yet! Add one to get started! 🎀</li>
+                    </ul>
+                </div>
+
+                <!-- Mood & Summary Card -->
+                <div class="card">
+                    <h2>💭 Mood & Summary</h2>
+                    
+                    <h3>How are you feeling today?</h3>
+                    <div class="mood-container">
+                        <select id="moodSelect">
+                            <option value="">Select your mood... 💕</option>
+                            <option value="motivated">💪 Motivated</option>
+                            <option value="neutral">😌 Neutral</option>
+                            <option value="tired">😴 Tired</option>
+                            <option value="excited">🤩 Excited</option>
+                        </select>
+                    </div>
+
+                    <h3 style="margin-top: 20px;">What did you accomplish today?</h3>
+                    <textarea 
+                        id="summaryText" 
+                        placeholder="Write a qualitative summary of your day... 📝"
+                    ></textarea>
+                    <button class="btn" id="saveSummaryBtn">Save Summary 💾</button>
+                </div>
+            </div>
+
+            <!-- Right Column: Analytics -->
+            <div>
+                <!-- Progress Card -->
+                <div class="card">
+                    <h2>📊 Today's Analytics</h2>
+
+                    <div class="analytics-container">
+                        <div class="stat-box">
+                            <h4>Daily Progress</h4>
+                            <div class="stat-value" id="progressText">0%</div>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Current Streak</h4>
+                            <div class="stat-value" id="currentStreak">0 🔥</div>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Total Tasks</h4>
+                            <div class="stat-value" id="totalTasks">0</div>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Completed</h4>
+                            <div class="stat-value" id="completedTasks">0</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div id="progressFill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Chart Card -->
+                <div class="card">
+                    <h2>📈 Weekly Progress</h2>
+                    <div class="chart-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- History Card -->
+                <div class="card">
+                    <h2>📅 Last 7 Days</h2>
+                    <div id="historyList"></div>
+                </div>
+
+                <!-- Mood Tracker Card -->
+                <div class="card">
+                    <h2>😊 Mood This Week</h2>
+                    <div id="moodTracker"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
