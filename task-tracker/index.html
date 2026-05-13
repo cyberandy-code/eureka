@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ Daily Task Tracker - Kawaii Edition ✨</title>
+    <title>✨ Golden Thread Tracker 🪞</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
@@ -11,86 +11,117 @@
     <div class="container">
         <!-- Header -->
         <header>
-            <h1>✨ Daily Task Tracker 💕</h1>
+            <h1>✨ Golden Thread Tracker 🪞</h1>
             <span id="todayDate"></span>
+            
+            <!-- Header Stats -->
+            <div class="header-stats">
+                <div class="header-stat">
+                    <span class="stat-label">Level:</span>
+                    <span class="stat-value" id="headerLevel">1 🌱</span>
+                </div>
+                <div class="header-stat">
+                    <span class="stat-label">Total XP:</span>
+                    <span class="stat-value" id="headerPoints">0 ⭐</span>
+                </div>
+                <div class="header-stat">
+                    <span class="stat-label">Streak:</span>
+                    <span class="stat-value" id="headerStreak">0 🔥</span>
+                </div>
+                <div class="header-stat">
+                    <span class="stat-label">Today:</span>
+                    <span class="stat-value" id="headerProgress">0%</span>
+                </div>
+            </div>
+            
             <p id="dailyQuote"></p>
         </header>
 
         <!-- Main Content -->
         <div class="main-content">
-            <!-- Left Column: Tasks and Mood -->
+            <!-- Left Column: Tasks -->
             <div>
-                <!-- Task Management Card -->
+                <!-- Tasks Card -->
                 <div class="card">
-                    <h2>📋 Today's Tasks</h2>
-                    
-                    <div class="task-input-container">
-                        <input 
-                            type="text" 
-                            id="taskInput" 
-                            placeholder="Add a new task... ✨"
-                            autocomplete="off"
-                        >
-                        <button class="btn" id="addTaskBtn">Add 🌟</button>
-                    </div>
-
-                    <ul id="taskList" class="task-list">
-                        <li class="empty-state">No tasks yet! Add one to get started! 🎀</li>
-                    </ul>
+                    <h2>📋 Your Golden Thread Tasks</h2>
+                    <div id="tasksList" class="tasks-list"></div>
                 </div>
 
-                <!-- Mood & Summary Card -->
+                <!-- Mood & Reflection Card -->
                 <div class="card">
-                    <h2>💭 Mood & Summary</h2>
+                    <h2>💭 Daily Mood & Reflection</h2>
                     
                     <h3>How are you feeling today?</h3>
-                    <div class="mood-container">
-                        <select id="moodSelect">
-                            <option value="">Select your mood... 💕</option>
-                            <option value="motivated">💪 Motivated</option>
-                            <option value="neutral">😌 Neutral</option>
-                            <option value="tired">😴 Tired</option>
-                            <option value="excited">🤩 Excited</option>
-                        </select>
-                    </div>
+                    <select id="moodSelect">
+                        <option value="">Select your mood... 💕</option>
+                        <option value="motivated">💪 Motivated</option>
+                        <option value="neutral">😌 Neutral</option>
+                        <option value="tired">😴 Tired</option>
+                        <option value="excited">🤩 Excited</option>
+                    </select>
 
-                    <h3 style="margin-top: 20px;">What did you accomplish today?</h3>
+                    <h3 style="margin-top: 20px;">Daily Reflection</h3>
                     <textarea 
                         id="summaryText" 
-                        placeholder="Write a qualitative summary of your day... 📝"
+                        placeholder="What did you learn today? What wins did you have? 📝"
                     ></textarea>
-                    <button class="btn" id="saveSummaryBtn">Save Summary 💾</button>
+                    <button class="btn" id="saveSummaryBtn">Save Reflection 💾</button>
                 </div>
             </div>
 
             <!-- Right Column: Analytics -->
             <div>
-                <!-- Progress Card -->
+                <!-- Level & Progress Card -->
                 <div class="card">
-                    <h2>📊 Today's Analytics</h2>
+                    <h2>🌸 Your Level & Progress</h2>
+                    
+                    <div class="level-container">
+                        <div class="level-box">
+                            <span class="level-number" id="levelDisplay">1</span>
+                            <span class="level-label" id="levelName">🌱 Beginner</span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h4>Total XP: <span id="totalPoints">0</span> ⭐</h4>
+                        <h4>Today's XP: <span id="todayPoints">0</span> ⭐</h4>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div id="xpFill" style="width: 0%"></div>
+                    </div>
+                    <p style="text-align: center; font-size: 0.9em; color: var(--text-light); margin-top: 10px;">
+                        <span id="currentXP">0</span> / <span id="nextLevelXP">1000</span> XP to next level
+                    </p>
+                </div>
 
+                <!-- Task Breakdown Card -->
+                <div class="card">
+                    <h2>✅ Today's Progress</h2>
+                    
                     <div class="analytics-container">
                         <div class="stat-box">
-                            <h4>Daily Progress</h4>
+                            <h4>Completion</h4>
                             <div class="stat-value" id="progressText">0%</div>
                         </div>
                         <div class="stat-box">
                             <h4>Current Streak</h4>
-                            <div class="stat-value" id="currentStreak">0 🔥</div>
-                        </div>
-                        <div class="stat-box">
-                            <h4>Total Tasks</h4>
-                            <div class="stat-value" id="totalTasks">0</div>
-                        </div>
-                        <div class="stat-box">
-                            <h4>Completed</h4>
-                            <div class="stat-value" id="completedTasks">0</div>
+                            <div class="stat-value" id="streakValue">0 🔥</div>
                         </div>
                     </div>
-
+                    
                     <div class="progress-bar">
                         <div id="progressFill" style="width: 0%"></div>
                     </div>
+                    
+                    <h3 style="margin-top: 20px;">Task Breakdown</h3>
+                    <div id="taskBreakdown" class="task-breakdown"></div>
+                </div>
+
+                <!-- Achievements Card -->
+                <div class="card">
+                    <h2>🏆 Achievements Unlocked</h2>
+                    <div id="achievementsList" class="achievements-list"></div>
                 </div>
 
                 <!-- Chart Card -->
